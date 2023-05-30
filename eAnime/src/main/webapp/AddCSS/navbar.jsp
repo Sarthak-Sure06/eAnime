@@ -39,7 +39,7 @@
 
 				<c:if test="${not empty userobj}">
 					<a href="cart.jsp"><i class="fa-sharp fa-solid fa-cart-plus me-2"></i></a>
-					<a href="Login.jsp" class="btn btn-outline-success me-2"
+					<a href="accounts.jsp" class="btn btn-outline-success me-2"
 						type="button"><i class="fa-solid fa-right-to-bracket"></i>${userobj.name}</a>
 					<a href="logout" class="btn btn-outline-primary me-2"
 						type="button"><i class="fa-solid fa-address-card"></i>Logout</a>>

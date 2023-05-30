@@ -75,5 +75,57 @@ public class UserDAOimpl implements UserDAO {
 
 	}
 
+	public boolean checkpassword(int id , String ps) {
+		// TODO Auto-generated method stub
+		boolean f = false;
+		
+		
+		try {
+			
+			String sql = "select * from user where id=? and password = ?";
+			PreparedStatement ps1 = c.prepareStatement(sql);
+			
+			ps1.setInt(1, id);
+			ps1.setString(2, ps);
+			
+			ResultSet rs = ps1.executeQuery();
+			while(rs.next()) {
+				f = true;
+			}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+		return f;
+	}
+
+	public boolean updateprofile(User us) {
+		// TODO Auto-generated method stub
+		boolean f = false;
+
+		try {
+
+			String sql = "update user set NAME=?,EMAIL=?,PHONENO=? where ID=?";
+			PreparedStatement ps = c.prepareStatement(sql);
+			ps.setString(1, us.getName());
+			ps.setString(2, us.getEmail());
+			ps.setString(3, us.getPhone());
+			ps.setInt(4, us.getId());
+
+			int check = ps.executeUpdate();
+			if (check == 1) {
+				f = true;
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+
+		return f;
+	}
+
 }
 

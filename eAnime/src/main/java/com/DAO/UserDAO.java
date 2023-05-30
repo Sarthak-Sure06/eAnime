@@ -7,5 +7,8 @@ public interface UserDAO {
 
 	public User loginR(String email, String password);
 
+	public boolean checkpassword(int id , String ps);
+
+	public boolean updateprofile(User us);
 }
 
