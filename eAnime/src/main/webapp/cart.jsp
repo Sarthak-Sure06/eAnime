@@ -21,19 +21,19 @@
 		<c:redirect url="Login.jsp"></c:redirect>
 	</c:if>
 
-	
+
+	<c:if test="${not empty succMsg }">
+		<div class="alert alert-success" role="alert">${succMsg}</div>
+		<c:remove var="succMsg" scope="session" />
+	</c:if>
+
+	<c:if test="${not empty failedMsg }">
+		<div class="alert alert-danger text-center" role="alert">${failedMsg}</div>
+		<c:remove var="failedMsg" scope="session" />
+	</c:if>
 
 
 	<div class="container m-5 p-5">
-	<c:if test="${not empty succMsg }">
-		<div class="alert alert-success" role="alert">${succMsg}</div>
-			<c:remove var="succMsg" scope="session"/>
-	</c:if>
-	
-	<c:if test="${not empty failedMsg }">
-		<div class="alert alert-danger" role="alert">${failedMsg}</div>
-			<c:remove var="failedMsg" scope="session"/>
-	</c:if>
 		<div class="row">
 			<div class="col-md-6">
 				<div class="card bg-white">
@@ -63,7 +63,8 @@
 									<th scope="row"><%=c.getItem()%></th>
 									<td><%=c.getCompany()%></td>
 									<td><%=c.getPrice()%></td>
-									<td><a href="remove_cart?tid=<%=c.getTid()%> && uid=<%=c.getUid() %>"
+									<td><a
+										href="remove_cart?tid=<%=c.getTid()%> && uid=<%=c.getUid()%>"
 										class="btn btn-sm btn-danger">Remove</a></td>
 								</tr>
 								<%
@@ -76,7 +77,7 @@
 									<td></td>
 									<td><%=totalprice%></td>
 								</tr>
-								</tbody>
+							</tbody>
 						</table>
 					</div>
 				</div>
@@ -91,45 +92,49 @@
 					<div class="card-body">
 						<h3 class="text-center text-success">YOUR DETAILS</h3>
 
-						<form class="row g-3">
+						<input type="hidden" value="${userobj.id }" name="id">
+						<form action="order" method="post" class="row g-3">
 							<div class="col-md-6">
 								<label for="inputEmail4" class="form-label">Name</label> <input
-									type="text" class="form-control" id="inputEmail4" value="<%=u.getName()%>" readonly="readonly">
+									type="text" name="name" class="form-control" id="inputEmail4"
+									value="${userobj.name }">
 							</div>
 							<div class="col-md-6">
 								<label for="inputEmail4" class="form-label">Email</label> <input
-									type="email" class="form-control" id="inputEmail4" value="<%=u.getEmail()%>" readonly="readonly">
+									type="email" name="email" class="form-control" id="inputEmail4"
+									value="${userobj.email }">
 							</div>
 							<div class="col-12">
 								<label for="inputAddress" class="form-label">Address</label> <input
-									type="text" class="form-control" id="inputAddress"
-									placeholder="1234 Main St">
+									type="text" name="address" class="form-control"
+									id="inputAddress" placeholder="1234 Main St">
 							</div>
 							<div class="col-12">
 								<label for="inputAddress2" class="form-label">Phone
 									Number</label> <input type="text" class="form-control"
-									id="inputAddress2" placeholder="mobile" value="<%= u.getPhone()%>" readonly="readonly">
+									id="inputAddress2" name="phone" placeholder="mobile"
+									value="${userobj.phone }">
 							</div>
 							<div class="col-md-6">
 								<label for="inputCity" class="form-label">City</label> <input
-									type="text" class="form-control" id="inputCity">
+									type="text" name="city" class="form-control" id="inputCity">
 							</div>
 							<div class="col-md-4">
 								<label for="inputState" class="form-label">State</label> <select
-									id="inputState" class="form-select">
+									id="inputState" name="state" class="form-select">
 									<option selected>Choose...</option>
 									<option>...</option>
 								</select>
 							</div>
 							<div class="col-md-2">
 								<label for="inputZip" class="form-label">Zip</label> <input
-									type="text" class="form-control" id="inputZip">
+									type="text" name="pincode" class="form-control" id="inputZip">
 							</div>
 							<div class="form-group">
 								<label for="inputState" class="form-label">Payment Mode</label>
-								<select id="inputState" class="form-control">
-									<option selected>Choose...</option>
-									<option>Cash on Delivery</option>
+								<select class="form-control">
+									<option value="noselect" selected>Choose...</option>
+									<option value="cod">Cash on Delivery</option>
 								</select>
 							</div>
 
